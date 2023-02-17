@@ -13,11 +13,17 @@ public class UserService {
     this.userRepository = new UserRepository(jdbcTemplate);
   }
 
-  public void updateUser(JdbcTemplate jdbcTemplate, UserUpdateRequest request) {
-    if (userRepository.isUserNotExist(jdbcTemplate, request.getId())) {
+  public void updateUser(UserUpdateRequest request) {
+    if (userRepository.isUserNotExist(request.getId())) {
       throw new IllegalArgumentException();
     }
+    userRepository.updateUserName(request.getName(), request.getId());
+  }
 
-    userRepository.updateUserName(jdbcTemplate, request.getName(), request.getId());
+  public void deleteUser(String name) {
+    if (userRepository.isUserNotExist(name)) {
+      throw new IllegalArgumentException();
+    }
+    userRepository.deleteUserByName(name);
   }
 }

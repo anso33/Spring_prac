@@ -11,13 +11,23 @@ public class UserRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  public boolean isUserNotExist(JdbcTemplate jdbcTemplate, long id) {
+  public boolean isUserNotExist(long id) {
     String sql = "SELECT * FROM user WHERE id = ?";
     return jdbcTemplate.query(sql, (rs, rowNum) -> 0, id).isEmpty();
   }
 
-  public void updateUserName(JdbcTemplate jdbcTemplate, String name, long id) {
+  public boolean isUserNotExist(String name) {
+    String sql = "SELECT * FROM user WHERE name = ?";
+    return jdbcTemplate.query(sql, (rs, rowNum) -> 0, name).isEmpty();
+  }
+
+  public void updateUserName(String name, long id) {
     String sql = "UPDATE user SET name = ? WHERE id = ?";
     jdbcTemplate.update(sql, name, id);
+  }
+
+  public void deleteUserByName(String name) {
+    String deleteSql = "DELETE FROM user WHERE name = ?";
+    jdbcTemplate.update(deleteSql, name);
   }
 }
