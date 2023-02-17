@@ -2,10 +2,12 @@ package com.group.libraryapp.repository.user;
 
 import com.group.libraryapp.dto.user.response.UserResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 // DB에 SQL을 날려 조작하는, 저장장치로의 접근을 담당하게 한다.
+@Repository
 public class UserRepository {
 
   private final JdbcTemplate jdbcTemplate;
