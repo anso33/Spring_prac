@@ -4,6 +4,7 @@ import com.group.libraryapp.domain.user.User;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
+import com.group.libraryapp.service.user.UserService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,11 @@ public class UserController {
 
   //  private final List<User> users = new ArrayList<>(); -> 이제 DB를 사용한다.
   private final JdbcTemplate jdbcTemplate;
+  private final UserService userService;
 
   public UserController(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
+    this.userService = new UserService(jdbcTemplate);
   }
 
   @PostMapping("/user")
@@ -49,16 +52,9 @@ public class UserController {
     });
   }
 
-  @PutMapping("/user")
+  @PutMapping("/user")  //API진입지점과 HTTP Body를 객체로 변환하는 역할만 한다.
   public void updateUser(@RequestBody UserUpdateRequest request) {
-    String readSql = "SELECT * FROM user WHERE id = ?";
-    boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, request.getId()).isEmpty();
-    if (isUserNotExist) {
-      throw new IllegalArgumentException();
-    }
-
-    String sql = "UPDATE user SET name = ? WHERE id = ?";
-    jdbcTemplate.update(sql, request.getName(), request.getId());
+    userService.updateUser(jdbcTemplate, request);
   }
 
   @DeleteMapping("/user")
