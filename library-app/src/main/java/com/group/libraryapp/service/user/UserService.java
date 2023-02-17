@@ -1,8 +1,12 @@
 package com.group.libraryapp.service.user;
 
+import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
+import com.group.libraryapp.dto.user.response.UserResponse;
 import com.group.libraryapp.repository.user.UserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
 
 // 예외처리 기능 부여
 public class UserService {
@@ -11,6 +15,14 @@ public class UserService {
 
   public UserService(JdbcTemplate jdbcTemplate) {
     this.userRepository = new UserRepository(jdbcTemplate);
+  }
+
+  public void saveUser(UserCreateRequest request) {
+    userRepository.saveUser(request.getName(), request.getAge());
+  }
+
+  public List<UserResponse> getUsers() {
+    return userRepository.getUserResponses();
   }
 
   public void updateUser(UserUpdateRequest request) {
