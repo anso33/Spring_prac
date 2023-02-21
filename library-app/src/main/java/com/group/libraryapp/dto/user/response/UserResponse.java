@@ -20,6 +20,9 @@ public class UserResponse {
     this.age = user.getAge();
   }
 
+  public UserResponse(User user) {
+  }
+
   public long getId() {
     return id;
   }

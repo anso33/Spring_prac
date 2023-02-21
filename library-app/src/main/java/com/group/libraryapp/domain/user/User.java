@@ -1,6 +1,5 @@
 package com.group.libraryapp.domain.user;
 
-
 import javax.persistence.*;
 
 @Entity // 저장되고 관리되어야 하는 데이터
@@ -27,11 +26,19 @@ public class User {
 
   public User() {}
 
+  public Long getId() {
+    return id;
+  }
+
   public String getName() {
     return name;
   }
 
   public Integer getAge() {
     return age;
+  }
+
+  public void updateName(String name) {
+    this.name = name;
   }
 }

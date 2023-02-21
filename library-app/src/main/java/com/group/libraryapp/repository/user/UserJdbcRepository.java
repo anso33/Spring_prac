@@ -8,11 +8,11 @@ import java.util.List;
 
 // DB에 SQL을 날려 조작하는, 저장장치로의 접근을 담당하게 한다.
 @Repository
-public class UserRepository {
+public class UserJdbcRepository {
 
   private final JdbcTemplate jdbcTemplate;
 
-  public UserRepository(JdbcTemplate jdbcTemplate) {
+  public UserJdbcRepository(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 
