@@ -1,6 +1,10 @@
 package com.group.libraryapp.domain.user;
 
+import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // 저장되고 관리되어야 하는 데이터
 public class User {
@@ -15,6 +19,10 @@ public class User {
 
   // 근데 사실 @Column 안 붙여도 JPA는 필드가 table에도 있을거라 예상한다.
   private Integer age;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  // UserLoanHistory의 user 필드를 JPA가 연관관계의 주인으로 인식하게 한다.
+  private List<UserLoanHistory> userLoanHistories = new ArrayList<>();
 
   public User(String name, Integer age) {
     if (name == null || name.isBlank()) {

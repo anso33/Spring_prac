@@ -37,7 +37,7 @@ public class BookService {
     }
     User user = userRepository.findByName(request.getUserName())
             .orElseThrow(IllegalArgumentException::new);
-    userLoanHistoryRepository.save(new UserLoanHistory(user.getId(), book.getName()));
+    userLoanHistoryRepository.save(new UserLoanHistory(user, book.getName()));
   }
 
   @Transactional
