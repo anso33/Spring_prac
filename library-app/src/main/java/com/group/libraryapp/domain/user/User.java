@@ -49,4 +49,16 @@ public class User {
   public void updateName(String name) {
     this.name = name;
   }
+
+  public void loanBook(String bookName) {
+    this.userLoanHistories.add(new UserLoanHistory(this, bookName));
+  }
+
+  public void returnBook(String bookName) { // TODO: 이해하기
+    UserLoanHistory targethistory = this.userLoanHistories.stream()
+            .filter(history -> history.getBookName().equals(bookName))
+            .findFirst()
+            .orElseThrow(IllegalArgumentException::new);
+    targethistory.doReturn();
+  }
 }

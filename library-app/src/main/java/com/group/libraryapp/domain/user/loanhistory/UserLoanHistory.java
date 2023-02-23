@@ -43,4 +43,16 @@ public class UserLoanHistory {
   public void doReturn() {
     this.isReturn = true;
   }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getBookName() {
+    return bookName;
+  }
+
+  public boolean isReturn() {
+    return isReturn;
+  }
 }
